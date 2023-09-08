@@ -40,7 +40,9 @@ class ListProcessing {
     if (tree.name == 'ol' || tree.name == 'ul') {
       tree.style.counterReset ??= {};
       if (!tree.style.counterReset!.containsKey('list-item')) {
-        tree.style.counterReset!['list-item'] = 0;
+      tree.style.counterReset!['list-item'] = tree.attributes['start'] is String
+            ? (int.tryParse(tree.attributes['start']!) ?? 1) - 1
+            : 0;
       }
     }
 
